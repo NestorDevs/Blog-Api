@@ -11,11 +11,13 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { hashRoles } from 'src/auth/decorator/roles.decorator';
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @Controller('users')
 export class UserController {
@@ -43,11 +45,17 @@ export class UserController {
     return this.userService.findOne(params.id);
   }
 
-  @hashRoles(UserRole.ADMIN)
-  @UseGuards(JwtAuthGuard, RolesGuard)
   @Get()
-  findAll(): Observable<User[]> {
-    return this.userService.findAll();
+  index(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ): Observable<Pagination<User>> {
+    limit = limit > 100 ? 100 : limit;
+    return this.userService.paginate({
+      page: Number(page),
+      limit: Number(limit),
+      route: 'http://localhost:3000/users',
+    });
   }
 
   @Delete(':id')
