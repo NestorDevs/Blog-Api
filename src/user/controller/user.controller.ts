@@ -46,17 +46,35 @@ export class UserController {
   }
 
   @Get()
-  findAll(
+  index(
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 10,
+    @Query('username') username: string,
   ): Observable<Pagination<User>> {
     limit = limit > 100 ? 100 : limit;
 
-    return this.userService.paginate({
-      page: Number(page),
-      limit: Number(limit),
-      route: 'http://localhost:3000/api/users',
-    });
+    if (username === null) {
+      return this.userService.paginate({
+        page: Number(page),
+        limit: Number(limit),
+        route: 'http://localhost:3000/api/users',
+      });
+    } else {
+      return this.userService.paginateFilterByUsername(
+        {
+          page: Number(page),
+          limit: Number(limit),
+          route: `http://localhost:3000/api/users/search/by/username/${username}`,
+        },
+        { username },
+      );
+    }
+
+    // return this.userService.paginate({
+    //   page: Number(page),
+    //   limit: Number(limit),
+    //   route: 'http://localhost:3000/api/users',
+    // });
   }
 
   @Get('search/by/username/:username')
