@@ -61,21 +61,6 @@ export class UserService {
     );
   }
 
-  // paginate(options: IPaginationOptions): Observable<Pagination<User>> {
-  //   return from(paginate<User>(this.userRepository, options));
-  // }
-
-  // paginateFilterByUsername(
-  //   options: IPaginationOptions,
-  //   user: User,
-  // ): Observable<Pagination<User>> {
-  //   return from(
-  //     paginate(this.userRepository, options, {
-  //       where: [{ username: Like(`%${user.username}%`) }],
-  //     }),
-  //   );
-  // }
-
   paginate(options: IPaginationOptions): Observable<Pagination<User>> {
     return from(paginate<User>(this.userRepository, options)).pipe(
       map((usersPageable: Pagination<User>) => {
@@ -136,7 +121,10 @@ export class UserService {
     delete user.email;
     delete user.password;
     delete user.role;
-    return from(this.userRepository.update(id, user));
+
+    return from(this.userRepository.update(id, user)).pipe(
+      switchMap(() => this.findOne(id)),
+    );
   }
 
   updateRoleOfUser(id: number, user: User): Observable<any> {
