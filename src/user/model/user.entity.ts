@@ -1,5 +1,14 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BlogEntryEntity } from './../../blog/model/blog-entry.entity';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { UserRole } from './user.interface';
+import { type } from 'os';
 
 @Entity()
 export class UserEntity {
@@ -23,6 +32,12 @@ export class UserEntity {
 
   @Column({ nullable: true })
   profileImage: string;
+
+  @OneToMany(
+    (type) => BlogEntryEntity,
+    (blogEntryEntity) => blogEntryEntity.author,
+  )
+  blogEntries: BlogEntryEntity[];
 
   @BeforeInsert()
   emailToLowerCase() {
