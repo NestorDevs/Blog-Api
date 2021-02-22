@@ -35,14 +35,16 @@ export class UserService {
             const { password, ...result } = user;
             return result;
           }),
-          catchError(err => throwError(err)),
+          catchError((err) => throwError(err)),
         );
       }),
     );
   }
 
   findOne(id: number): Observable<User> {
-    return from(this.userRepository.findOne({ id })).pipe(
+    return from(
+      this.userRepository.findOne({ id }, { relations: ['blogEntries'] }),
+    ).pipe(
       map((user: User) => {
         const { password, ...result } = user;
         return result;
@@ -52,8 +54,8 @@ export class UserService {
 
   findAll(): Observable<User[]> {
     return from(this.userRepository.find()).pipe(
-      map(users => {
-        users.forEach(function(v) {
+      map((users: User[]) => {
+        users.forEach(function (v) {
           delete v.password;
         });
         return users;
@@ -64,7 +66,7 @@ export class UserService {
   paginate(options: IPaginationOptions): Observable<Pagination<User>> {
     return from(paginate<User>(this.userRepository, options)).pipe(
       map((usersPageable: Pagination<User>) => {
-        usersPageable.items.forEach(function(v) {
+        usersPageable.items.forEach(function (v) {
           delete v.password;
         });
         return usersPageable;
