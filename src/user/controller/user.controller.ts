@@ -1,3 +1,4 @@
+import { UserIsUserGuard } from './../../auth/guards/UserIsUser.guards';
 import { RolesGuard } from './../../auth/guards/roles-guard';
 import { JwtAuthGuard } from './../../auth/guards/jwt-guard';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -48,7 +49,7 @@ export class UserController {
   create(@Body() user: User): Observable<User | Object> {
     return this.userService.create(user).pipe(
       map((user: User) => user),
-      catchError(err => of({ error: err.message })),
+      catchError((err) => of({ error: err.message })),
     );
   }
 
@@ -113,6 +114,7 @@ export class UserController {
     return this.userService.deleteOne(Number(id));
   }
 
+  @UseGuards(JwtAuthGuard, UserIsUserGuard)
   @Put(':id')
   updateOne(@Param('id') id: string, @Body() user: User): Observable<any> {
     return this.userService.updateOne(Number(id), user);
