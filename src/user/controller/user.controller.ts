@@ -75,7 +75,7 @@ export class UserController {
   ): Observable<Pagination<User>> {
     limit = limit > 100 ? 100 : limit;
 
-    if (username === null) {
+    if (username === null || username === undefined) {
       return this.userService.paginate({
         page: Number(page),
         limit: Number(limit),
@@ -86,27 +86,11 @@ export class UserController {
         {
           page: Number(page),
           limit: Number(limit),
-          route: `http://localhost:3000/api/users/search/by/username/${username}`,
+          route: 'http://localhost:3000/api/users',
         },
         { username },
       );
     }
-  }
-
-  @Get('search/by/username/:username')
-  findAllByUsername(
-    @Param('username') username: string,
-    @Query('page') page: number = 1,
-    @Query('limit') limit: number = 10,
-  ): Observable<Pagination<User>> {
-    return this.userService.paginateFilterByUsername(
-      {
-        page: Number(page),
-        limit: Number(limit),
-        route: `http://localhost:3000/api/users/search/by/username/${username}`,
-      },
-      { username },
-    );
   }
 
   @Delete(':id')
