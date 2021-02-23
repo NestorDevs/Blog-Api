@@ -1,9 +1,11 @@
-import { map, switchMap } from 'rxjs/operators';
+import { UseIsAuthorGuard } from './../guards/user-is-author.guard';
+import { JwtAuthGuard } from './../../auth/guards/jwt-guard';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { UserService } from './../../user/service/user.service';
 import { BlogEntryEntity } from './../model/blog-entry.entity';
 import { User } from 'src/user/model/user.interface';
 import { BlogEntry } from 'src/blog/model/blog-entries.interface';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { from, Observable, of } from 'rxjs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -44,6 +46,16 @@ export class BlogService {
         relations: ['author'],
       }),
     ).pipe(map((blogEntries: BlogEntry[]) => blogEntries));
+  }
+
+  updateOne(id: number, blogEntry: BlogEntry): Observable<BlogEntry> {
+    return from(this.blogRepository.update(id, blogEntry)).pipe(
+      switchMap(() => this.findOne(id)),
+    );
+  }
+
+  deleteOne(id: number): Observable<any> {
+    return from(this.blogRepository.delete(id));
   }
 
   generateSlug(title: string): Observable<string> {
