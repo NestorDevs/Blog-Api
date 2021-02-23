@@ -1,10 +1,9 @@
-import { BlogEntry } from './../model/blog-entries.interface';
+import { BlogEntry } from '../model/blog-entries.interface';
 import { switchMap, map } from 'rxjs/operators';
-import { BlogService } from './../service/blog.service';
-import { UserService } from './../../user/service/user.service';
+import { BlogService } from '../service/blog.service';
+import { UserService } from '../../user/service/user.service';
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { Reflector } from '@nestjs/core';
 import { User } from 'src/user/model/user.interface';
 
 @Injectable()

@@ -1,10 +1,15 @@
-import { UseIsAuthorGuard } from './../guards/user-is-author.guard';
+import {
+  Pagination,
+  IPaginationOptions,
+  paginate,
+} from 'nestjs-typeorm-paginate';
+import { UseIsAuthorGuard } from '../guards/UserIsAuthor.guards';
 import { JwtAuthGuard } from './../../auth/guards/jwt-guard';
+import { BlogEntry } from './../model/blog-entries.interface';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { UserService } from './../../user/service/user.service';
 import { BlogEntryEntity } from './../model/blog-entry.entity';
 import { User } from 'src/user/model/user.interface';
-import { BlogEntry } from 'src/blog/model/blog-entries.interface';
 import { Injectable, UseGuards } from '@nestjs/common';
 import { from, Observable, of } from 'rxjs';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -31,6 +36,26 @@ export class BlogService {
 
   findAll(): Observable<BlogEntry[]> {
     return from(this.blogRepository.find({ relations: ['author'] }));
+  }
+
+  paginateAll(options: IPaginationOptions): Observable<Pagination<BlogEntry>> {
+    return from(
+      paginate<BlogEntry>(this.blogRepository, options, {
+        relations: ['author'],
+      }),
+    ).pipe(map((blogEntries: Pagination<BlogEntry>) => blogEntries));
+  }
+
+  paginateByUser(
+    options: IPaginationOptions,
+    userId: number,
+  ): Observable<Pagination<BlogEntry>> {
+    return from(
+      paginate<BlogEntry>(this.blogRepository, options, {
+        relations: ['author'],
+        where: [{ author: userId }],
+      }),
+    ).pipe(map((blogEntries: Pagination<BlogEntry>) => blogEntries));
   }
 
   findOne(id: number): Observable<BlogEntry> {
