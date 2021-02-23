@@ -60,15 +60,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/users/4",
+					"raw": "http://localhost:3000/api/users/12",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"api",
 						"users",
-						"4"
+						"12"
 					]
 				}
 			},
@@ -97,11 +98,21 @@
 		{
 			"name": "Update Users",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMiwibmFtZSI6IlVzZXIxIiwidXNlcm5hbWUiOiJVc2VyMSIsImVtYWlsIjoidXNlckBjb3JyZW8uY29tIiwicm9sZSI6InVzZXIiLCJwcm9maWxlSW1hZ2UiOm51bGx9LCJpYXQiOjE2MTQwMjE2NjEsImV4cCI6MTYxNDAzMTY2MX0.s4L5_SDwaSUIobj4GfPYw8l9ngQWD3MiMN0cjgwSQ-k",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Luis Marquez\",\n        \"username\": \"NestorDevs1\"\n}",
+					"raw": "{\n   \"name\": \"User100\",\n    \"username\": \"User123\",\n    \"email\": \"user@correo.com\",\n    \"role\": \"user\",\n    \"profileImage\": \"Postgresql_elephant4ee4a217-fdde-4d0b-a7d1-0a379706c548.svg\"\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -109,15 +120,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/users/3",
+					"raw": "http://localhost:3000/api/users/12",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"api",
 						"users",
-						"3"
+						"12"
 					]
 				}
 			},
@@ -187,6 +199,324 @@
 						"users",
 						"8",
 						"role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users (Filter USername)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMSwibmFtZSI6Ikpvc2UgVG9ycmUiLCJ1c2VybmFtZSI6Ikpvc2UiLCJlbWFpbCI6InRlc3QxQHRlc3QuY29tIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTYxMjM4NTE1MywiZXhwIjoxNjEyMzk1MTUzfQ.5mT4StJwocnPiwm7uuxQ6hDzxgmPxFb_cI8Pf4ywymY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/search/by/username/Jose",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"search",
+						"by",
+						"username",
+						"Jose"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  a Users (Filter Username limit & page)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMSwibmFtZSI6Ikpvc2UgVG9ycmUiLCJ1c2VybmFtZSI6Ikpvc2UiLCJlbWFpbCI6InRlc3QxQHRlc3QuY29tIiwicm9sZSI6ImFkbWluIn0sImlhdCI6MTYxMjM4NTE1MywiZXhwIjoxNjEyMzk1MTUzfQ.5mT4StJwocnPiwm7uuxQ6hDzxgmPxFb_cI8Pf4ywymY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users?username=Nestor&page=1&limit=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "Nestor"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Image profile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/profile-image/Postgresql_elephant785469f2-89e3-439c-9a18-8a64fc296859.svg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"profile-image",
+						"Postgresql_elephant785469f2-89e3-439c-9a18-8a64fc296859.svg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload image profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMiwibmFtZSI6IlVzZXIxIiwidXNlcm5hbWUiOiJVc2VyMSIsImVtYWlsIjoidXNlckBjb3JyZW8uY29tIiwicm9sZSI6InVzZXIiLCJwcm9maWxlSW1hZ2UiOm51bGx9LCJpYXQiOjE2MTQwMjE2NjEsImV4cCI6MTYxNDAzMTY2MX0.s4L5_SDwaSUIobj4GfPYw8l9ngQWD3MiMN0cjgwSQ-k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/neivert/Imágenes/Postgresql_elephant.svg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Blog Entry (jwt needed)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMiwibmFtZSI6IlVzZXIxMDAiLCJ1c2VybmFtZSI6IlVzZXIxMjMiLCJlbWFpbCI6InVzZXJAY29ycmVvLmNvbSIsInJvbGUiOiJ1c2VyIiwicHJvZmlsZUltYWdlIjoiUG9zdGdyZXNxbF9lbGVwaGFudDRlZTRhMjE3LWZkZGUtNGQwYi1hN2QxLTBhMzc5NzA2YzU0OC5zdmcifSwiaWF0IjoxNjE0MDMwNzk4LCJleHAiOjE2MTQwNDA3OTh9.XrXvDdshW2UwDSP4S9yDmASxPmt0IN8YUlsoQ8EFJPo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"primer blog\",\n    \"description\": \"esto es una preba de crear un blog\",\n    \"body\": \"test body\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/blogs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"blogs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get blog Entry by user (With query param)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/blogs?userId=12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"blogs"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "12"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find One Blog  Resquest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/blogs/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"blogs",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Blog Entrie (jwt needed)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMiwibmFtZSI6IlVzZXIxMDAiLCJ1c2VybmFtZSI6IlVzZXIxMjMiLCJlbWFpbCI6InVzZXJAY29ycmVvLmNvbSIsInJvbGUiOiJ1c2VyIiwicHJvZmlsZUltYWdlIjoiUG9zdGdyZXNxbF9lbGVwaGFudDRlZTRhMjE3LWZkZGUtNGQwYi1hN2QxLTBhMzc5NzA2YzU0OC5zdmcifSwiaWF0IjoxNjE0MTExMDE0LCJleHAiOjE2MTQxMjEwMTR9.gMExri_uQWcF2QrvKksqwwcq8KDd3igdb4GLGPffHPc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"actualizando...\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/blogs/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"blogs",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  all blog Entry ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/blogs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"blogs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete blog entry (jwt needed, and UseGuards author)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxMiwibmFtZSI6IlVzZXIxMDAiLCJ1c2VybmFtZSI6IlVzZXIxMjMiLCJlbWFpbCI6InVzZXJAY29ycmVvLmNvbSIsInJvbGUiOiJ1c2VyIiwicHJvZmlsZUltYWdlIjoiUG9zdGdyZXNxbF9lbGVwaGFudDRlZTRhMjE3LWZkZGUtNGQwYi1hN2QxLTBhMzc5NzA2YzU0OC5zdmcifSwiaWF0IjoxNjE0MTExMDE0LCJleHAiOjE2MTQxMjEwMTR9.gMExri_uQWcF2QrvKksqwwcq8KDd3igdb4GLGPffHPc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/blogs/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"blogs",
+						"4"
 					]
 				}
 			},
