@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { User } from 'src/user/model/user.interface';
-import { UserService } from './../../user/service/user.service';
+import { UserService } from '../../user/service/user.service';
 
 @Injectable()
 export class UserIsUserGuard implements CanActivate {

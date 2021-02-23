@@ -1,4 +1,4 @@
-import { UseIsAuthorGuard } from '../guards/UserIsAuthor.guards';
+import { UseIsAuthorGuard } from '../guards/user-is-author.guard';
 import { BlogEntry } from './../model/blog-entries.interface';
 import { JwtAuthGuard } from './../../auth/guards/jwt-guard';
 import { Observable } from 'rxjs';

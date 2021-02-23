@@ -1,4 +1,4 @@
-import { UserIsUserGuard } from './../../auth/guards/UserIsUser.guards';
+import { UserIsUserGuard } from '../../auth/guards/UserIsUser.guard';
 import { RolesGuard } from './../../auth/guards/roles-guard';
 import { JwtAuthGuard } from './../../auth/guards/jwt-guard';
 import { catchError, map, tap } from 'rxjs/operators';

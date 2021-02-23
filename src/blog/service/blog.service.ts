@@ -3,7 +3,7 @@ import {
   IPaginationOptions,
   paginate,
 } from 'nestjs-typeorm-paginate';
-import { UseIsAuthorGuard } from '../guards/UserIsAuthor.guards';
+import { UseIsAuthorGuard } from '../guards/user-is-author.guard';
 import { JwtAuthGuard } from './../../auth/guards/jwt-guard';
 import { BlogEntry } from './../model/blog-entries.interface';
 import { map, switchMap, tap } from 'rxjs/operators';
