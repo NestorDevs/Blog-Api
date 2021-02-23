@@ -1,3 +1,4 @@
+
 # compiled output
 /dist
 /node_modules
@@ -10,12 +11,11 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# OS
-.DS_Store
-
 # environment variables
 .env
 
+# OS
+.DS_Store
 
 # Tests
 /coverage
